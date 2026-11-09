@@ -1,0 +1,11 @@
+# Data and results are not part of the repository
+data/
+output/
+
+# System and session files
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+__pycache__/
+*.pyc
