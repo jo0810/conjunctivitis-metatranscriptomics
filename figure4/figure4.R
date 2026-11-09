@@ -3,7 +3,7 @@
 #      study genomes colored by center and labeled with library and assigned type
 #   B  maximum-likelihood tree of the study HCoV-229E genome with references (left) and spike amino-acid
 #      states at polymorphic sites relative to the column consensus (right); study-specific substitutions in red
-# Trees were inferred with MAFFT and IQ-TREE (see docs/upstream_processing.md).
+# Trees were inferred with MAFFT and IQ-TREE (see the STAR Methods of the paper).
 # Run from the repository root: Rscript figure4/figure4.R
 # Output: output/figure4/Figure4.pdf (174 mm wide).
 
@@ -30,8 +30,9 @@ open_pdf8 <- function(file, width, height) {
 }
 theme_set(theme_get() + ggplot2::theme(text = ggplot2::element_text(family = "Arial")))
 
-source("config.R")
-OUT <- out_dir("figure4")
+# Inputs are read from data/; the figure is written to output/figure4/.
+in_file <- function(f) file.path("data", f)
+OUT <- file.path("output", "figure4"); dir.create(OUT, recursive = TRUE, showWarnings = FALSE)
 
 # ============================================================================
 # Layout: 174 mm wide, 6-pt text; panel A (fan) above panel B (HCoV-229E)

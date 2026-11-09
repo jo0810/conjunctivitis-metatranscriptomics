@@ -35,9 +35,11 @@ clamp_lwd_grob <- function(g) {
   g
 }
 
-source("config.R")
-OUT <- out_dir("figure3")
-FIG3_IN <- file.path(OUTPUT_DIR, "figure3")   # tables written by the Python scripts in figure3/
+# Inputs are read from data/ and from output/figure3/ (tables written by the Python scripts in figure3/);
+# the figure is written to output/figure3/.
+in_file <- function(f) file.path("data", f)
+OUT <- file.path("output", "figure3"); dir.create(OUT, recursive = TRUE, showWarnings = FALSE)
+FIG3_IN <- OUT
 
 # Arial is embedded through the quartz device on macOS; other platforms fall back to cairo_pdf.
 open_pdf <- function(file, width, height) {

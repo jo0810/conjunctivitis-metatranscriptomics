@@ -16,8 +16,9 @@ suppressPackageStartupMessages({
   library(vegan)
 })
 
-source("config.R")
-OUT <- out_dir("figure2")
+# Inputs are read from data/; the figure is written to output/figure2/.
+in_file <- function(f) file.path("data", f)
+OUT <- file.path("output", "figure2"); dir.create(OUT, recursive = TRUE, showWarnings = FALSE)
 
 # Arial is embedded through the quartz device on macOS; other platforms fall back to cairo_pdf.
 if (capabilities("aqua")) quartzFonts(Arial = quartzFont(c("Arial", "Arial Bold", "Arial Italic", "Arial Bold Italic")))

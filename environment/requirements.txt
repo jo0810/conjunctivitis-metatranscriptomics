@@ -1,4 +1,0 @@
-# Python 3.10 or later; versions used for the paper (Python 3.13.12)
-pandas==3.0.1
-numpy==2.4.3
-scipy==1.18.0

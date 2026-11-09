@@ -7,19 +7,16 @@ Run after 01_arg_quantification.py.
 """
 import os
 import re
-import sys
 
 import pandas as pd
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path[:0] = [HERE, os.path.dirname(HERE)]          # this folder and the repository root
-from config import OUTPUT_DIR, in_file, out_file  # noqa: E402
+DATA = 'data'                              # inputs (run from the repository root)
+OUT = os.path.join('output', 'figure3')    # outputs
+os.makedirs(OUT, exist_ok=True)
 
-MOD = 'figure3'
-
-h = pd.read_csv(in_file('arg_contig_host_assignments.tsv'), sep='\t', dtype=str).fillna('')
+h = pd.read_csv(os.path.join(DATA, 'arg_contig_host_assignments.tsv'), sep='\t', dtype=str).fillna('')
 h = h[~h['host_taxon'].str.contains('synthetic', case=False, na=False)]
-top = pd.read_csv(os.path.join(OUTPUT_DIR, MOD, 'arg_top35.csv'))
+top = pd.read_csv(os.path.join(OUT, 'arg_top35.csv'))
 
 
 def norm(s):
@@ -49,6 +46,6 @@ hit = h[h['gene_name'].notna()]
 pairs = (hit.groupby(['host_taxon', 'gene_name'])
             .agg(n_contigs=('contig', 'nunique'), n_libraries=('sample', 'nunique'))
             .reset_index().rename(columns={'host_taxon': 'species'}))
-pairs.to_csv(out_file(MOD, 'arg_contig_colocated_pairs.csv'), index=False)
+pairs.to_csv(os.path.join(OUT, 'arg_contig_colocated_pairs.csv'), index=False)
 
 print(f'species-ARG pairs with contig support: {len(pairs)}')
